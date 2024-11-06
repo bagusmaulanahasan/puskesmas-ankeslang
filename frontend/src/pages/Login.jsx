@@ -32,9 +32,10 @@ const Login = () => {
                 password,
             });
             const role = res.data.role;
-            console.log(role); // Tambahkan ini untuk memastikan role diterima
+            console.log(role); // Memastikan role  diterima
             // Simpan token di localStorage
             localStorage.setItem("token", res.data.token);
+            localStorage.setItem("username", username);  // Menyimpan username
             navigate("/dashboard", { state: { role } });
             // localStorage.setItem('role', role);
         } catch (err) {

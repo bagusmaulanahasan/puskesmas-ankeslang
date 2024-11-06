@@ -4,6 +4,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function AddPatient() {
+
+    const pendaftar = localStorage.getItem("username");
+
     const [formData, setFormData] = useState({
         nik: "",
         nama_lengkap: "",
@@ -11,6 +14,7 @@ function AddPatient() {
         umur: "",
         alamat: "",
         poli: "umum",
+        pendaftar: pendaftar,
     });
 
     // const [error, setError] = useState(''); // State untuk menyimpan pesan kesalahan
@@ -74,6 +78,7 @@ function AddPatient() {
                 umur: "",
                 alamat: "",
                 poli: "umum",
+                pendaftar: pendaftar,
             });
             e.target.reset();
             // setError('');
@@ -95,7 +100,7 @@ function AddPatient() {
     return (
         <form
             onSubmit={handleSubmit}
-            className=" flex flex-col gap-4 mt-20 border border-gray-300 rounded-md p-8"
+            className=" flex flex-col gap-4 mt-36 mb-20 ml-24  border border-gray-300 rounded-md p-8 w-1/2"
         >
             {/* Field NIK */}
             <div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AddPatient from "./AddPatient.jsx";
 import AntriPoli from "./AntriPoli.jsx";
+import HistoryAddPatient from "./HistoryAddPatient.jsx";
+import DaftarAntrian from "./DaftarAntrian.jsx";
 // import SideMenu from './SideMenu.jsx';
 // import { div } from "react-router-dom";
 
@@ -23,31 +25,24 @@ const UserDashboard = () => {
                         <ul className="space-y-2">
                             <li className="cursor-pointer">
                                 <div
-                                    className="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200"
-                                    // activeClassName="bg-gray-700"
                                     onClick={() => handleMenu("dashboard")}
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'dashboard' ? 'bg-slate-200' : ''}`}
                                 >
                                     Dashboard
                                 </div>
                             </li>
                             <li className="cursor-pointer">
                                 <div
-                                    className="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200"
-                                    // activeClassName="bg-gray-700"
-                                    onClick={() =>
-                                        handleMenu("registrasi-kunjungan")
-                                    }
+                                    onClick={() => handleMenu("registrasi-kunjungan")}
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'registrasi-kunjungan' ? 'bg-slate-200' : ''}`}
                                 >
                                     Registrasi Kunjungan
                                 </div>
                             </li>
                             <li className="cursor-pointer">
                                 <div
-                                    className="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200"
-                                    // activeClassName="bg-gray-700"
-                                    onClick={() =>
-                                        handleMenu("riwayat-kunjungan")
-                                    }
+                                    onClick={() => handleMenu("riwayat-kunjungan")}
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'riwayat-kunjungan' ? 'bg-slate-200' : ''}`}
                                 >
                                     Riwayat Kunjungan
                                 </div>
@@ -56,10 +51,10 @@ const UserDashboard = () => {
                     </nav>
                 </div>
             </div>
-            <div className="p-4 w-1/2">
+            <div className="p-4 w-2/3">
                 {menu === "dashboard" && <AntriPoli />}
-                {menu === "registrasi-kunjungan" && <AddPatient />}
-                {menu === "riwayat-kunjungan" && <AddPatient />}
+                {menu === "registrasi-kunjungan" && <DaftarAntrian />}
+                {menu === "riwayat-kunjungan" && <HistoryAddPatient />}
             </div>
         </div>
     );

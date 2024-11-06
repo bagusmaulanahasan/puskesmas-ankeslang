@@ -1,34 +1,118 @@
-import React, { useRef } from 'react';
-import { toPng } from 'html-to-image';
-import { saveAs } from 'file-saver';
+import axios from "axios";
+import { jsPDF } from "jspdf";
+import { useEffect, useState } from "react";
 
-const QueueCard = ({ formData }) => {
-    const cardRef = useRef(null);
+const DownloadCard = ({ data, isRegistered }) => {
+    const [patients, setPatients] = useState([]);
 
-    const downloadCard = async () => {
-        if (cardRef.current) {
-            const dataUrl = await toPng(cardRef.current);
-            saveAs(dataUrl, 'kartu_antrian.png');
+    const fetchPatients = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/pasien");
+            setPatients(response.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
         }
     };
 
+    useEffect(() => {
+        fetchPatients();
+    }, []);
+
+    {
+        patients.map((patient) =>
+            new Date(patient.waktu_periksa).toLocaleString("id-ID", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+            })
+        );
+    }
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+
+        doc.text(`Nomor Antrian: ${data.nomor_antrian}`, 10, 10);
+        doc.text(
+            `Poli Klinik: ${data.poli
+                .replaceAll("_", " ")
+                .split(" ")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}`,
+            10,
+            20
+        );
+        doc.text(`Nama: ${data.nama_lengkap}`, 10, 30);
+        doc.text(`Alamat: ${data.alamat}`, 10, 40);
+        doc.text(`Umur: ${data.umur}`, 10, 50);
+        doc.text(
+            `Waktu Periksa: ${
+                patients.length > 0
+                    ? new Date(patients[0].waktu_periksa).toLocaleString(
+                          "id-ID",
+                          {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: false,
+                          }
+                      )
+                    : "Data tidak tersedia"
+            }`,
+            10,
+            60
+        );
+
+        // Unduh PDF
+        doc.save("antrian_pasien.pdf");
+    };
+
     return (
-        <div className="p-4 border border-gray-300 rounded-md shadow-md" ref={cardRef}>
-            <h2 className="text-xl font-bold mb-2">Kartu Antrian</h2>
-            <p><strong>NIK:</strong> {formData.nik}</p>
-            <p><strong>Nama Lengkap:</strong> {formData.nama_lengkap}</p>
-            <p><strong>Jenis Kelamin:</strong> {formData.jenis_kelamin}</p>
-            <p><strong>Umur:</strong> {formData.umur}</p>
-            <p><strong>Alamat:</strong> {formData.alamat}</p>
-            <p><strong>Poli Klinik:</strong> {formData.poli}</p>
+        <div
+            className={`p-4 border rounded-md shadow-md ${
+                isRegistered ? "bg-green-100" : "bg-gray-100"
+            }`}
+        >
+            <h3 className="text-xl font-semibold">
+                Nomor Antrian: {data.nomor_antrian}
+            </h3>
+            <p>
+                Poli Klinik:{" "}
+                {data.poli
+                    .replaceAll("_", " ")
+                    .split(" ")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ")}
+            </p>
+            <p>Nama: {data.nama_lengkap}</p>
+            <p>Alamat: {data.alamat}</p>
+            <p>Umur: {data.umur}</p>
+            <p>
+                Waktu Periksa:{" "}
+                {data.waktu_periksa
+                    ? new Date(data.waktu_periksa).toLocaleString("id-ID", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                      })
+                    : "Data tidak tersedia"}
+            </p>
+
             <button
-                onClick={downloadCard}
-                className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={downloadPDF}
+                className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
             >
-                Download Kartu
+                Download PDF
             </button>
         </div>
     );
 };
 
-export default QueueCard;
+export default DownloadCard;
