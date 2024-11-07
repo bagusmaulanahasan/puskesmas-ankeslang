@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import HomePage from './pages/Homepage.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditPatient from './fragments/EditPetient.jsx';
+import QueueCard from './fragments/QueueCard.jsx';
 
 // import AdminDashboard from './pages/AdminDashboard.jsx'
 // import DoctorDashboard from './pages/DoctorDashboard.jsx'
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/edit" element={<EditPatient />} />
+        <Route path="/kartu-antrian/:patientId" element={<QueueCard />} />
       </Routes>
     </Router>
   </StrictMode>,

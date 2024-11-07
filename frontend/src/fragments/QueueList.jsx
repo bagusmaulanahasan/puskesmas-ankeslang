@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AntriPoli = () => {
+const QueueList = () => {
     const [queues, setQueues] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -66,4 +66,4 @@ const AntriPoli = () => {
     );
 };
 
-export default AntriPoli;
+export default QueueList;

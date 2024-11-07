@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PatientTable from "./PatientTable.jsx";
-import AntriPoli from "./AntriPoli.jsx";
 import AddPatient from "./AddPatient.jsx";
+import QueueList from "./QueueList.jsx";
 
 const AdminDashboard = () => {
     const [menu, setMenu] = useState("dashboard");
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
                     </nav>
                 </div>
             </div>
-            {menu === "dashboard" && <AntriPoli />}
+            {menu === "dashboard" && <QueueList />}
             {menu === "registrasi-kunjungan" && <AddPatient />}
             {menu === "daftar-pasien" && <PatientTable />}
         </div>

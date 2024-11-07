@@ -229,7 +229,7 @@ const PatientTable = () => {
                             <td>{patient.nik}</td>
                             <td>{patient.nama_lengkap}</td>
                             <td>{patient.jenis_kelamin}</td>
-                            <td>{patient.umur}</td>
+                            <td className="text-center">{patient.umur}</td>
                             <td>{patient.alamat}</td>
                             <td>
                                 {patient.poli
@@ -243,7 +243,7 @@ const PatientTable = () => {
                                     .join(" ")
                                     .replace("D", "d")}
                             </td>
-                            <td>{patient.nomor_antrian}</td>
+                            <td className="text-center">{patient.nomor_antrian}</td>
                             <td>
                                 {new Date(patient.waktu_periksa).toLocaleString(
                                     "id-ID",
@@ -305,7 +305,7 @@ const PatientTable = () => {
                         <label>Jenis Kelamin</label>
                         <select
                             name="jenis_kelamin"
-                            value={currentPatient?.jenis_kelamin || ""}
+                            value={currentPatient?.jenis_kelamin || "laki-laki"}
                             onChange={handleEditChange}
                             className="w-full p-2 border rounded mb-2"
                         >
@@ -332,13 +332,16 @@ const PatientTable = () => {
                         />
 
                         <label>Poli</label>
-                        <input
-                            type="text"
+                        <select
                             name="poli"
-                            value={currentPatient?.poli || ""}
+                            value={currentPatient?.poli || "umum"} // Jika currentPatient?.poli tidak ada, default ke "umum"
                             onChange={handleEditChange}
                             className="w-full p-2 border rounded mb-2"
-                        />
+                        >
+                            <option value="umum">Umum</option>
+                            <option value="ibu_dan_anak">Ibu dan Anak</option>
+                            <option value="gigi_dan_mulut">Gigi dan Mulut</option>
+                        </select>
 
                         <label>Nomor Antrian</label>
                         <input

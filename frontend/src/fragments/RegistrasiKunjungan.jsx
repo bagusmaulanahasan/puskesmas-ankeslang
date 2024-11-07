@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DownloadCard from "./DownloadCard";
 
-function DaftarAntrian() {
+function RegistrasiKunjungan() {
     // ambil data username dari localStorage
     const username = localStorage.getItem("username");
 
@@ -91,14 +91,15 @@ function DaftarAntrian() {
         }
     };
 
-    if (!patientData) {
-        return <div>Loading patient data...</div>;
-    }
+    // if (!patientData) {
+    //     return <div>Loading patient data...</div>;
+    // }
 
     return (
-        <div>
+        <div className="w-1/2 mt-28">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-20 border border-gray-300 rounded-md p-8">
                 {/* Field Poli */}
+                <h2 className="text-2xl font-bold mb-4">Registrasi Kunjungan Pasien</h2>
                 <div className="flex flex-col">
                     <label htmlFor="poli" className="font-medium">
                         Poli klinik<span className="text-red-500">*</span>
@@ -124,15 +125,15 @@ function DaftarAntrian() {
                 </button>
             </form>
 
-            {/* Menampilkan DownloadCard jika registrasi berhasil */}
+            {/* Menampilkan DownloadCard jika registrasi berhasil
             {isRegistrationComplete && patientData && (
                 <DownloadCard data={formData} isRegistered={isRegistrationComplete} />
-            )}
+            )} */}
         </div>
     );
 }
 
-export default DaftarAntrian;
+export default RegistrasiKunjungan;
 
 
 

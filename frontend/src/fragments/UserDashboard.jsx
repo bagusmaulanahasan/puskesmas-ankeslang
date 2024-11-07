@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import AddPatient from "./AddPatient.jsx";
-import AntriPoli from "./AntriPoli.jsx";
 import HistoryAddPatient from "./HistoryAddPatient.jsx";
-import DaftarAntrian from "./DaftarAntrian.jsx";
-// import SideMenu from './SideMenu.jsx';
-// import { div } from "react-router-dom";
+import QueueList from "./QueueList.jsx";
+import RegistrasiKunjungan from "./RegistrasiKunjungan.jsx";
 
 const UserDashboard = () => {
     const [menu, setMenu] = useState("dashboard");
@@ -26,23 +23,39 @@ const UserDashboard = () => {
                             <li className="cursor-pointer">
                                 <div
                                     onClick={() => handleMenu("dashboard")}
-                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'dashboard' ? 'bg-slate-200' : ''}`}
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${
+                                        menu === "dashboard"
+                                            ? "bg-slate-200"
+                                            : ""
+                                    }`}
                                 >
                                     Dashboard
                                 </div>
                             </li>
                             <li className="cursor-pointer">
                                 <div
-                                    onClick={() => handleMenu("registrasi-kunjungan")}
-                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'registrasi-kunjungan' ? 'bg-slate-200' : ''}`}
+                                    onClick={() =>
+                                        handleMenu("registrasi-kunjungan")
+                                    }
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${
+                                        menu === "registrasi-kunjungan"
+                                            ? "bg-slate-200"
+                                            : ""
+                                    }`}
                                 >
                                     Registrasi Kunjungan
                                 </div>
                             </li>
                             <li className="cursor-pointer">
                                 <div
-                                    onClick={() => handleMenu("riwayat-kunjungan")}
-                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${menu === 'riwayat-kunjungan' ? 'bg-slate-200' : ''}`}
+                                    onClick={() =>
+                                        handleMenu("riwayat-kunjungan")
+                                    }
+                                    className={`block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-200 ${
+                                        menu === "riwayat-kunjungan"
+                                            ? "bg-slate-200"
+                                            : ""
+                                    }`}
                                 >
                                     Riwayat Kunjungan
                                 </div>
@@ -51,9 +64,9 @@ const UserDashboard = () => {
                     </nav>
                 </div>
             </div>
-            <div className="p-4 w-2/3">
-                {menu === "dashboard" && <AntriPoli />}
-                {menu === "registrasi-kunjungan" && <DaftarAntrian />}
+            <div className="w-full flex justify-center">
+                {menu === "dashboard" && <QueueList />}
+                {menu === "registrasi-kunjungan" && <RegistrasiKunjungan />}
                 {menu === "riwayat-kunjungan" && <HistoryAddPatient />}
             </div>
         </div>
