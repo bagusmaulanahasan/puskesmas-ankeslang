@@ -62,7 +62,11 @@ const AdminDashboard = () => {
                     </nav>
                 </div>
             </div>
-            {menu === "dashboard" && <QueueList />}
+            {menu === "dashboard" && (
+                    <div  className="p-4 mt-36">
+                        <QueueList />
+                    </div>
+                )}
             {menu === "registrasi-kunjungan" && <AddPatient />}
             {menu === "daftar-pasien" && <PatientTable />}
         </div>

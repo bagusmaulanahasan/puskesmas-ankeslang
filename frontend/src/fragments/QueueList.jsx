@@ -35,7 +35,7 @@ const QueueList = () => {
     }
 
     return (
-        <div className="p-4 mt-36">
+        <div>
             <h2 className="text-2xl font-bold mb-4">Informasi Antrian Saat Ini</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* {queues.map((queue, index) => (

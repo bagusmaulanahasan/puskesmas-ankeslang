@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router-dom";
+import BackgroundLogin from '../assets/clipboard-stethoscope.jpg'
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -43,42 +44,6 @@ const Register = () => {
         });
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     // Validasi input
-    //     if (!formData.username || !formData.password || !formData.confirmPassword || !formData.nik || !formData.nama_lengkap || !formData.umur || !formData.jenis_kelamin || !formData.alamat) {
-    //         showAlert("error", "Semua data wajib diisi!");
-    //         return;
-    //     }
-
-    //     if (formData.password !== formData.confirmPassword) {
-    //         showAlert("error", "Password dan Confirm Password tidak cocok!");
-    //         return;
-    //     }
-
-    //     try {
-    //         // Kirim data ke backend
-    //         await axios.post("http://localhost:3000/register", {
-    //             username: formData.username,
-    //             password: formData.password,
-    //             role,
-    //             nik: formData.nik,
-    //             nama_lengkap: formData.nama_lengkap,
-    //             umur: formData.umur,
-    //             jenis_kelamin: formData.jenis_kelamin,
-    //             alamat: formData.alamat,
-    //         });
-    //         console.log("User registered");
-    //         showSuccesAlert("success", "Register Succes!", 2800);
-    //         setTimeout(() => {
-    //             window.location.href = "/login";
-    //         }, 1800);
-    //     } catch (err) {
-    //         console.error(err);
-    //         showAlert("error", "Register gagal!");
-    //     }
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -133,7 +98,10 @@ const Register = () => {
     
     
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen" style={{
+            backgroundImage: `url(${BackgroundLogin})`,
+            backgroundSize: `cover`,
+        }}>
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-4/5 lg:w-3/5">
                 <h2 className="text-2xl mb-4 text-center">Register</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

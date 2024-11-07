@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DownloadCard from "./DownloadCard";
+// import DownloadCard from "./DownloadCard";
 
 function RegistrasiKunjungan() {
     // ambil data username dari localStorage
@@ -25,7 +25,8 @@ function RegistrasiKunjungan() {
 
     useEffect(() => {
         // Fetch data dari backend menggunakan endpoint yang sudah disiapkan
-        axios.get(`http://localhost:3000/users/${username}`)
+        axios
+            .get(`http://localhost:3000/users/${username}`)
             .then((response) => {
                 // Filter data pasien berdasarkan pendaftar
                 setPatientData(response.data);
@@ -71,24 +72,49 @@ function RegistrasiKunjungan() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formData); // Debug
-        
-        try {
-            const response = await axios.post("http://localhost:3000/pasien", formData);
-            console.log(response);
-            // show allert succes
-            showSuccessAlert("top", "success", "Berhasil daftar", 2000);
-            setRegistrationComplete(true);  // Set registration complete to true
-            e.target.reset();
-        } catch (error) {
-            console.error(error);
-            showAlert(
-                "error",
-                "Error",
-                "Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.",
-                null
-            );
-        }
+        // Tampilkan konfirmasi dengan SweetAlert
+        Swal.fire({
+            title: "Konfirmasi Registrasi",
+            text: "Apakah Anda yakin ingin melakukan registrasi kunjungan?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#22c55e",
+            // cancelButtonColor: "bg-gray-400",
+            confirmButtonText: "Ya, Daftar",
+            cancelButtonText: "Batal",
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    // Lakukan registrasi jika pengguna mengonfirmasi
+                    const response = await axios.post(
+                        "http://localhost:3000/pasien",
+                        formData
+                    );
+                    console.log(response);
+
+                    // Tampilkan alert sukses
+                    Swal.fire({
+                        position: "top",
+                        icon: "success",
+                        title: "Berhasil daftar",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+
+                    setRegistrationComplete(true); // Set registration complete to true
+                    e.target.reset();
+                } catch (error) {
+                    console.error(error);
+                    // Tampilkan alert error
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.",
+                    });
+                }
+            }
+        });
     };
 
     // if (!patientData) {
@@ -97,9 +123,14 @@ function RegistrasiKunjungan() {
 
     return (
         <div className="w-1/2 mt-28">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-20 border border-gray-300 rounded-md p-8">
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-4 mt-20 border border-gray-300 rounded-md p-8"
+            >
                 {/* Field Poli */}
-                <h2 className="text-2xl font-bold mb-4">Registrasi Kunjungan Pasien</h2>
+                <h2 className="text-2xl font-bold mb-4">
+                    Registrasi Kunjungan Pasien
+                </h2>
                 <div className="flex flex-col">
                     <label htmlFor="poli" className="font-medium">
                         Poli klinik<span className="text-red-500">*</span>
@@ -134,9 +165,6 @@ function RegistrasiKunjungan() {
 }
 
 export default RegistrasiKunjungan;
-
-
-
 
 // import Swal from "sweetalert2";
 // import React, { useEffect, useState } from "react";
@@ -209,7 +237,7 @@ export default RegistrasiKunjungan;
 //         e.preventDefault();
 
 //         console.log(formData); // Debug
-        
+
 //         try {
 //             const response = await axios.post("http://localhost:3000/pasien", formData);
 //             console.log(response);

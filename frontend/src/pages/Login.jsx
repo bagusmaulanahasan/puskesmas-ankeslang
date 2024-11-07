@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import BackgroundLogin from '../assets/clipboard-stethoscope.jpg'
 
 
 const Login = () => {
@@ -45,7 +46,10 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen" style={{
+            backgroundImage: `url(${BackgroundLogin})`,
+            backgroundSize: `cover`,
+        }}>
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded shadow-md w-80"
