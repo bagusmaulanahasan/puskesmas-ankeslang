@@ -8,14 +8,9 @@ import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import HomePage from "./pages/Homepage.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ClosedPage from "./pages/ClosedPage.jsx";
 // import EditPatient from './fragments/EditPetient.jsx';
 // import QueueCard from './fragments/QueueCard.jsx';
-
-const ClosedPage = () => (
-    <div>
-        <h2>Puskesmas sedang tutup. Jam operasional: 08:00 - 21:00</h2>
-    </div>
-);
 
 // Komponen wrapper untuk pengecekan waktu
 const TimeCheckWrapper = ({ children }) => {
