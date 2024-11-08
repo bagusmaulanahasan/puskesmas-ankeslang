@@ -121,14 +121,31 @@ const PatientTable = () => {
         fetchPatients();
     }, []);
 
+
     useEffect(() => {
-        // Initialize DataTables ketika data sudah dimuat
         if (patients.length > 0) {
             $(document).ready(function () {
-                $("#patientsTable").DataTable();
+                // Cek jika DataTable sudah diinisialisasi
+                if ($.fn.dataTable.isDataTable('#patientsTable')) {
+                    $('#patientsTable').DataTable().destroy();  // Hancurkan DataTable yang sudah ada
+                }
+                // Inisialisasi DataTable kembali
+                $("#patientsTable").DataTable({
+                    "order": [[0, 'desc']] // Mengurutkan berdasarkan kolom pertama (indeks 0) secara descending
+                });
             });
         }
     }, [patients]);
+    
+    
+    // useEffect(() => {
+    //     // Initialize DataTables ketika data sudah dimuat
+    //     if (patients.length > 0) {
+    //         $(document).ready(function () {
+    //             $("#patientsTable").DataTable();
+    //         });
+    //     }
+    // }, [patients]);
 
     // Fungsi untuk mengekspor data ke Excel
     const exportToExcel = () => {
@@ -220,6 +237,7 @@ const PatientTable = () => {
                         <th>Poli</th>
                         <th>Nomor Antrian</th>
                         <th>Waktu Periksa</th>
+                        <th>Username Pendaftar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -257,6 +275,7 @@ const PatientTable = () => {
                                     }
                                 )}
                             </td>
+                            <td>{patient.pendaftar}</td>
                             <td>
                                 <div className="flex gap-2">
                                     <button

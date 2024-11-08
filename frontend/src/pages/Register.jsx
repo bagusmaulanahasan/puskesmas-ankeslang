@@ -44,7 +44,6 @@ const Register = () => {
         });
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -61,19 +60,24 @@ const Register = () => {
             return;
         }
     
-        // Log data yang akan dikirim
-        console.log({
-            username,
-            password,
-            role,
-            nik,
-            nama_lengkap,
-            umur,
-            jenis_kelamin,
-            alamat,
-        });
-    
         try {
+            // Cek apakah username atau NIK sudah ada di database
+            const checkResponse = await axios.post("http://localhost:3000/check-user", {
+                username,
+                nik,
+            });
+    
+            if (checkResponse.data.usernameExists) {
+                showAlert("error", "Username sudah terdaftar, gunakan username lain!");
+                return;
+            }
+    
+            if (checkResponse.data.nikExists) {
+                showAlert("error", "NIK sudah terdaftar, periksa kembali data Anda!");
+                return;
+            }
+    
+            // Jika tidak ada duplikasi, lanjutkan registrasi
             await axios.post("http://localhost:3000/register", {
                 username,
                 password,
@@ -84,8 +88,9 @@ const Register = () => {
                 jenis_kelamin,
                 alamat,
             });
+    
             console.log("User registered");
-            showSuccesAlert("success", "Register Succes!", 2800);
+            showSuccesAlert("success", "Register Success!", 2800);
             setTimeout(() => {
                 window.location.href = "/login";
             }, 1800);
@@ -94,6 +99,45 @@ const Register = () => {
             showAlert("error", "Register gagal!");
         }
     };
+    
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    
+    //     const { username, password, confirmPassword, nik, nama_lengkap, umur, jenis_kelamin, alamat } = formData;
+    
+    //     // Validasi input
+    //     if (!username || !password || !confirmPassword || !role || !nik || !nama_lengkap || !umur || !jenis_kelamin || !alamat) {
+    //         showAlert("error", "Semua data wajib diisi!");
+    //         return;
+    //     }
+    
+    //     if (password !== confirmPassword) {
+    //         showAlert("error", "Password dan Confirm Password tidak cocok!");
+    //         return;
+    //     }
+    
+    //     try {
+    //         await axios.post("http://localhost:3000/register", {
+    //             username,
+    //             password,
+    //             role,
+    //             nik,
+    //             nama_lengkap,
+    //             umur,
+    //             jenis_kelamin,
+    //             alamat,
+    //         });
+    //         console.log("User registered");
+    //         showSuccesAlert("success", "Register Succes!", 2800);
+    //         setTimeout(() => {
+    //             window.location.href = "/login";
+    //         }, 1800);
+    //     } catch (err) {
+    //         console.error(err);
+    //         showAlert("error", "Register gagal!");
+    //     }
+    // };
     
     
     

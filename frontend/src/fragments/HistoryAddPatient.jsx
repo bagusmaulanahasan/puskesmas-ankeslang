@@ -27,10 +27,27 @@ const HistoryAddPatient = () => {
     useEffect(() => {
         if (patients.length > 0) {
             $(document).ready(function () {
-                $("#patientsTable").DataTable();
+                // Cek jika DataTable sudah diinisialisasi
+                if ($.fn.dataTable.isDataTable('#patientsTable')) {
+                    $('#patientsTable').DataTable().destroy();  // Hancurkan DataTable yang sudah ada
+                }
+                // Inisialisasi DataTable kembali
+                $("#patientsTable").DataTable({
+                    "order": [[0, 'desc']] // Mengurutkan berdasarkan kolom pertama (indeks 0) secara descending
+                });
             });
         }
     }, [patients]);
+    
+    
+    
+    // useEffect(() => {
+    //     if (patients.length > 0) {
+    //         $(document).ready(function () {
+    //             $("#patientsTable").DataTable();
+    //         });
+    //     }
+    // }, [patients]);
 
     // Fungsi untuk ekspor ke Excel
     const exportToExcel = () => {

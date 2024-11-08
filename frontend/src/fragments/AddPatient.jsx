@@ -64,24 +64,39 @@ function AddPatient() {
         }
 
         try {
-            const response = await axios.post(
-                "http://localhost:3000/pasien",
-                formData
-            );
-            console.log(response);
-            showSuccessAlert("top", "success", "Berhasil daftar", 2000);
-            // Reset form values
-            setFormData({
-                nik: "",
-                nama_lengkap: "",
-                jenis_kelamin: "",
-                umur: "",
-                alamat: "",
-                poli: "umum",
-                pendaftar: pendaftar,
+            // Tampilkan konfirmasi dengan SweetAlert
+            const result = await Swal.fire({
+                title: "Konfirmasi Registrasi",
+                text: "Apakah Anda yakin ingin melakukan registrasi kunjungan?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#22c55e",
+                confirmButtonText: "Ya, Daftar",
+                cancelButtonText: "Batal",
+                reverseButtons: true,
             });
-            e.target.reset();
-            // setError('');
+        
+            // Jika pengguna menekan tombol "Ya, Daftar"
+            if (result.isConfirmed) {
+                const response = await axios.post(
+                    "http://localhost:3000/pasien",
+                    formData
+                );
+                console.log(response);
+                showSuccessAlert("top", "success", "Berhasil daftar", 2000);
+        
+                // Reset form values
+                setFormData({
+                    nik: "",
+                    nama_lengkap: "",
+                    jenis_kelamin: "",
+                    umur: "",
+                    alamat: "",
+                    poli: "umum",
+                    pendaftar: pendaftar,
+                });
+                e.target.reset();
+            }
         } catch (error) {
             console.error(error);
             showAlert(
@@ -91,6 +106,7 @@ function AddPatient() {
                 null
             );
         }
+        
     };
 
     const handleInput = (e) => {
