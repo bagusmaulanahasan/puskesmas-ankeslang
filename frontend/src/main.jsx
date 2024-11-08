@@ -17,7 +17,7 @@ const TimeCheckWrapper = ({ children }) => {
     const hour = new Date().getHours();
 
     // Cek jika dalam jam tutup (21:00 - 08:00)
-    if (hour >= 21 || hour < 8) {
+    if (hour >= 21 || hour < 6) {
         return <ClosedPage />; // Tampilkan halaman tutup
     }
 

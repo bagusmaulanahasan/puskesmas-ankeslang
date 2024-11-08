@@ -9,7 +9,6 @@ const UsersData = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [formData, setFormData] = useState({
         username: "",
-        password: "",
         role: "",
         nik: "",
         nama_lengkap: "",
@@ -81,7 +80,6 @@ const UsersData = () => {
         setSelectedUser(user);
         setFormData({
             username: user.username,
-            password: "",
             role: user.role,
             nik: user.nik,
             nama_lengkap: user.nama_lengkap,
@@ -105,7 +103,6 @@ const UsersData = () => {
         e.preventDefault();
         const {
             username,
-            password,
             role,
             nik,
             nama_lengkap,
@@ -117,7 +114,6 @@ const UsersData = () => {
         try {
             await axios.put(`http://localhost:3000/users/${selectedUser.id}`, {
                 username,
-                password,
                 role,
                 nik,
                 nama_lengkap,
@@ -138,7 +134,6 @@ const UsersData = () => {
             setSelectedUser(null);
             setFormData({
                 username: "",
-                password: "",
                 role: "",
                 nik: "",
                 nama_lengkap: "",

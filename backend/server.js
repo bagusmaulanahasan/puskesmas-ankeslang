@@ -452,7 +452,6 @@ app.put("/users/:id", (req, res) => {
     const { id } = req.params;
     const {
         username,
-        password,
         role,
         nik,
         nama_lengkap,
@@ -463,7 +462,7 @@ app.put("/users/:id", (req, res) => {
 
     const query = `
       UPDATE users 
-      SET username = ?, password = ?, role = ?, nik = ?, nama_lengkap = ?, umur = ?, jenis_kelamin = ?, alamat = ? 
+      SET username = ?, role = ?, nik = ?, nama_lengkap = ?, umur = ?, jenis_kelamin = ?, alamat = ? 
       WHERE id = ?
     `;
 
@@ -471,7 +470,6 @@ app.put("/users/:id", (req, res) => {
         query,
         [
             username,
-            password,
             role,
             nik,
             nama_lengkap,
