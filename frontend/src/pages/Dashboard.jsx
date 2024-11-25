@@ -1,18 +1,19 @@
 import React from 'react';
 // import DoctorDashboard from '../fragments/DoctorDashboard';
-import UserDashboard from '../fragments/UserDashboard';
-import AdminDashboard from '../fragments/AdminDashboard';
+import UserDashboard from '../components/Fragments/UserDashboard';
+import AdminDashboard from '../components/Fragments/AdminDashboard';
 import { useLocation } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Elements/Navbar';
 
 const Dashboard = () => {
   const location = useLocation();
   const { role } = location.state || {};
-  console.log(role);
+  
+  const username = localStorage.getItem("username")
 
   return (
     <div>
-      <Navbar role={role} />
+      <Navbar username={username} />
       {role === 'user' && <UserDashboard />}
       {/* {role === 'doctor' && <DoctorDashboard />} */}
       {role === 'admin' && <AdminDashboard />}

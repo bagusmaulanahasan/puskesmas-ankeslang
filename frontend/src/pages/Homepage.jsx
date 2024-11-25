@@ -1,4 +1,4 @@
-import QueueList from "../fragments/QueueList";
+import QueueList from "../components/Elements/QueueList.jsx";
 import BackgroundHomePage from "../assets/copy-space-medical-workspace.jpg";
 import { Link } from "react-router-dom";
 
